@@ -28,7 +28,7 @@ class ProjectController extends AbstractController
         return $this->render('project/list.html.twig', ['projects' => $projects]);
     }
 
-    #[Route('/projects/create')]
+    #[Route('/projects/create', name: 'projects-create')]
     public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
         $project = new Project();
