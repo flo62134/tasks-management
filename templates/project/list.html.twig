@@ -1,5 +1,7 @@
 {% for project in projects %}
-    <div style="background-color: {{ project.color }};">{{ project.name }}</div>
+    <a href="{{ path('tasks-list', { 'id': project.id}) }}">
+        <div style="background-color: {{ project.color }};">{{ project.name }}</div>
+    </a>
 {% endfor %}
 
 <a href="{{ path('projects-create') }}">Create a new project</a>

@@ -13,7 +13,7 @@
             <td>{{ task.name }}</td>
             <td>{{ task.startDate | date('Y-m-d H:i:s') }}</td>
             <td>{{ task.endDate | date('Y-m-d H:i:s') }}</td>
-            <td>{{ task.isBilled }}</td>
+            <td>{{ task.isBilled ? 'Yes' : 'No' }}</td>
         </tr>
     {% endfor %}
     </tbody>

@@ -22,8 +22,8 @@ class ProjectController extends AbstractController
         $this->repository = $repository;
     }
 
-    #[Route('/projects', name: 'projects-index')]
-    public function index(): Response
+    #[Route('/projects', name: 'projects-list')]
+    public function list(): Response
     {
         $projects = $this->repository->findAll();
 
@@ -42,7 +42,7 @@ class ProjectController extends AbstractController
             $entityManager->persist($project);
             $entityManager->flush();
 
-            return $this->redirectToRoute('projects-index');
+            return $this->redirectToRoute('projects-list');
         }
 
         return $this->render('project/create.html.twig', ['form' => $form->createView()]);

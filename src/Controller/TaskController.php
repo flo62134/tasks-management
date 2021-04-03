@@ -15,8 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
-    #[Route('/projects/{id}/tasks', name: 'tasks-index')]
-    public function index(Project $project): Response
+    #[Route('/projects/{id}/tasks', name: 'tasks-list')]
+    public function list(Project $project): Response
     {
         return $this->render(
             'task/list.html.twig',
