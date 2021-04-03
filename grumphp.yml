@@ -1,6 +1,9 @@
 grumphp:
     git_hook_variables:
         EXEC_GRUMPHP_COMMAND: ['docker-compose', 'exec', '-T', 'php']
+    fixer:
+        enabled: true
+        fix_by_default: true
     tasks:
         phpcsfixer:
             config: .php_cs
