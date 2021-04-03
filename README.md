@@ -5,5 +5,5 @@
 3. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
 
 ## Quality tools
-- To run PHP CS fixer: ```dce php composer php-cs```
+- To run PHP CS fixer: ```dce php composer cs```
 - GrumPHP automatically check your commits. To run it manually, run ```dce php composer grumphp```

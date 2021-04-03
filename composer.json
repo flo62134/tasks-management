@@ -58,7 +58,7 @@
     "post-update-cmd": [
       "@auto-scripts"
     ],
-    "php-cs": "vendor/bin/php-cs-fixer fix src",
+    "cs": "vendor/bin/php-cs-fixer fix src",
     "grumphp": "vendor/bin/grumphp run"
   },
   "conflict": {
