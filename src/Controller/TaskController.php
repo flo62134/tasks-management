@@ -15,11 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
+    #[Route('/projects/{id}/tasks', name: 'tasks-index')]
+    public function index(Project $project): Response
+    {
+        return $this->render(
+            'task/list.html.twig',
+            ['tasks' => $project->getTasks(), 'project' => $project]
+        );
+    }
+
     #[Route('/projects/{id}/tasks/create', name: 'tasks-create')]
     public function create(Project $project, Request $request, EntityManagerInterface $entityManager): Response
     {
         $task = new Task();
         $task->setIsBilled(false);
+        $task->setProject($project);
 
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);

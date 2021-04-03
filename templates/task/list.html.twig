@@ -1,0 +1,22 @@
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Is billed</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.startDate | date('Y-m-d H:i:s') }}</td>
+            <td>{{ task.endDate | date('Y-m-d H:i:s') }}</td>
+            <td>{{ task.isBilled }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('tasks-create', { 'id': project.id }) }}">Create a new task</a>
