@@ -39,6 +39,12 @@ class Task
      */
     private bool $isBilled;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private Project $project;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +94,18 @@ class Task
     public function setIsBilled($isBilled): self
     {
         $this->isBilled = $isBilled;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(Project $project): self
+    {
+        $this->project = $project;
 
         return $this;
     }

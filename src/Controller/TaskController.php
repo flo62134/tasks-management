@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\Project;
 use App\Entity\Task;
 use App\Form\Type\TaskType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,8 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TaskController extends AbstractController
 {
-    #[Route('/tasks/create', name: 'tasks-create')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/projects/{id}/tasks/create', name: 'tasks-create')]
+    public function create(Project $project, Request $request, EntityManagerInterface $entityManager): Response
     {
         $task = new Task();
         $task->setIsBilled(false);
@@ -28,7 +29,7 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tasks-create');
+            return $this->redirectToRoute('tasks-create', ['id' => $project->getId()]);
         }
 
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
