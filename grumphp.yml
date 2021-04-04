@@ -10,3 +10,4 @@ grumphp:
         file_size:
         git_commit_message:
         yamllint:
+        phpunitbridge:

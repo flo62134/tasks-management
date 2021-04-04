@@ -38,7 +38,7 @@ class StatsController extends AbstractController
         $to = $formData['to'] ?? null;
 
         $tasks = $this->taskRepository->findByProjectAndPeriod($project, $from, $to);
-        $totalDuration = $this->taskConverter->toDuration($tasks);
+        $totalDuration = $this->taskConverter->toDuration($tasks->toArray());
         $days = $from && $to ? $from->diff($to)->days + 1 : null;
 
         $params = [

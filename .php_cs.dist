@@ -11,6 +11,7 @@ return (new PhpCsFixer\Config())
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
         'declare_strict_types' => true,
+        'php_unit_strict' => false,
     ])
     ->setFinder($finder)
 ;
