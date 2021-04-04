@@ -109,4 +109,9 @@ class Task
 
         return $this;
     }
+
+    public function getDuration(): \DateInterval
+    {
+        return $this->getStartDate()->diff($this->getEndDate());
+    }
 }

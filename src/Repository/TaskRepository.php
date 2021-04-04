@@ -7,6 +7,8 @@ namespace App\Repository;
 use App\Entity\Project;
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -22,11 +24,9 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    public function countBy(Project $project = null, \DateTime $from = null, \DateTime $to = null): int
+    public function findByProjectAndPeriod(Project $project = null, \DateTime $from = null, \DateTime $to = null): Collection
     {
-        $queryBuilder = $this->createQueryBuilder('t')
-            ->select('COUNT(t.id)')
-        ;
+        $queryBuilder = $this->createQueryBuilder('t');
 
         if ($project) {
             $queryBuilder->where('t.project = :project')
@@ -46,8 +46,8 @@ class TaskRepository extends ServiceEntityRepository
             ;
         }
 
-        return $queryBuilder
+        return new ArrayCollection($queryBuilder
             ->getQuery()
-            ->getResult()[0][1];
+            ->getResult());
     }
 }

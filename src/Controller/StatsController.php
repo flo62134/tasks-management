@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Converter\TaskConverter;
 use App\Repository\ProjectRepository;
 use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,11 +16,13 @@ class StatsController extends AbstractController
 {
     private TaskRepository $taskRepository;
     private ProjectRepository $projectRepository;
+    private TaskConverter $taskConverter;
 
-    public function __construct(TaskRepository $taskRepository, ProjectRepository $projectRepository)
+    public function __construct(TaskRepository $taskRepository, ProjectRepository $projectRepository, TaskConverter $taskConverter)
     {
         $this->taskRepository = $taskRepository;
         $this->projectRepository = $projectRepository;
+        $this->taskConverter = $taskConverter;
     }
 
     #[Route('/stats', name: 'stats-dashboard')]
@@ -29,8 +32,11 @@ class StatsController extends AbstractController
         $from = $request->get('from') ? new \DateTime($request->get('from')) : null;
         $to = $request->get('to') ? new \DateTime($request->get('to')) : null;
 
+        $tasks = $this->taskRepository->findByProjectAndPeriod($project, $from, $to);
+
         $stats = [
-            'tasksCount' => $this->taskRepository->countBy($project, $from, $to),
+            'tasksCount' => $tasks->count(),
+            'totalDuration' => $this->taskConverter->toDuration($tasks),
         ];
 
         return $this->render(
