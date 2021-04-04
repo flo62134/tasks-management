@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Converter\TaskConverter;
+use App\Form\Type\StatsType;
 use App\Repository\ProjectRepository;
 use App\Repository\TaskRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,20 +29,26 @@ class StatsController extends AbstractController
     #[Route('/stats', name: 'stats-dashboard')]
     public function dashboard(Request $request): Response
     {
-        $project = $request->get('project') ? $this->projectRepository->find($request->get('project')) : null;
-        $from = $request->get('from') ? new \DateTime($request->get('from')) : null;
-        $to = $request->get('to') ? new \DateTime($request->get('to')) : null;
+        $form = $this->createForm(StatsType::class);
+        $form->handleRequest($request);
+
+        $formData = $form->getData();
+        $project = $formData['project'] ?? null;
+        $from = $formData['from'] ?? null;
+        $to = $formData['to'] ?? null;
 
         $tasks = $this->taskRepository->findByProjectAndPeriod($project, $from, $to);
         $totalDuration = $this->taskConverter->toDuration($tasks);
         $days = $from && $to ? $from->diff($to)->days + 1 : null;
 
-        $stats = [
+        $params = [
             'tasksCount' => $tasks->count(),
             'totalDuration' => $totalDuration,
             'days' => $days,
+            'projects' => $this->projectRepository->findAll(),
+            'form' => $form->createView(),
         ];
 
-        return $this->render('stats/dashboard.html.twig', $stats);
+        return $this->render('stats/dashboard.html.twig', $params);
     }
 }
