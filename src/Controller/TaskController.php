@@ -44,4 +44,13 @@ class TaskController extends AbstractController
 
         return $this->render('task/create.html.twig', ['form' => $form->createView()]);
     }
+
+    #[Route('/tasks/{id}/bill', name: 'tasks-bill', methods: ['PATCH'])]
+    public function bill(Task $task, EntityManagerInterface $entityManager): Response
+    {
+        $task->setIsBilled(true);
+        $entityManager->flush();
+
+        return $this->json($task, Response::HTTP_OK);
+    }
 }

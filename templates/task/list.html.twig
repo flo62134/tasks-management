@@ -1,3 +1,5 @@
+{% extends 'base.html.twig' %}
+{% block body %}
 <table>
     <thead>
     <tr>
@@ -13,10 +15,24 @@
             <td>{{ task.name }}</td>
             <td>{{ task.startDate | date('Y-m-d H:i:s') }}</td>
             <td>{{ task.endDate | date('Y-m-d H:i:s') }}</td>
-            <td>{{ task.isBilled ? 'Yes' : 'No' }}</td>
+            <td onclick="bill({{ task.id }}, event)">
+                {{ task.isBilled ? '✔' : '❌' }}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
 
 <a href="{{ path('tasks-create', { 'id': project.id }) }}">Create a new task</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        function bill(taskId, event) {
+            fetch('/tasks/' + taskId + '/bill', {method: 'PATCH'})
+                .then(function () {
+                    event.target.innerHTML = '✔'
+                });
+        }
+    </script>
+{% endblock %}
