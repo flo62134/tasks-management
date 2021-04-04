@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    <p>Total tasks: {{ stats.tasksCount }}</p>
-    <p>Total minutes: {{ stats.totalDuration.h }} hours and {{ stats.totalDuration.i }} minutes</p>
+    <p>Total tasks: {{ tasksCount }}</p>
+    <p>Total minutes: {{ totalDuration.h }} hours and {{ totalDuration.i }} minutes</p>
+    {% if days is defined %}
+        <p>Average per day: {{ (totalDuration.h / days) | round(2) }} hours and {{ (totalDuration.i / days) | round(2)  }} minutes</p>
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}

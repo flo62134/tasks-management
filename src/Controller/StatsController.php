@@ -33,15 +33,15 @@ class StatsController extends AbstractController
         $to = $request->get('to') ? new \DateTime($request->get('to')) : null;
 
         $tasks = $this->taskRepository->findByProjectAndPeriod($project, $from, $to);
+        $totalDuration = $this->taskConverter->toDuration($tasks);
+        $days = $from && $to ? $from->diff($to)->days + 1 : null;
 
         $stats = [
             'tasksCount' => $tasks->count(),
-            'totalDuration' => $this->taskConverter->toDuration($tasks),
+            'totalDuration' => $totalDuration,
+            'days' => $days,
         ];
 
-        return $this->render(
-            'stats/dashboard.html.twig',
-            ['stats' => $stats]
-        );
+        return $this->render('stats/dashboard.html.twig', $stats);
     }
 }

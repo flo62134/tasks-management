@@ -29,19 +29,19 @@ class TaskRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('t');
 
         if ($project) {
-            $queryBuilder->where('t.project = :project')
+            $queryBuilder->andWhere('t.project = :project')
                 ->setParameter('project', $project->getId())
             ;
         }
 
         if ($from) {
-            $queryBuilder->where('t.startDate >= :from')
+            $queryBuilder->andWhere('t.startDate >= :from')
                 ->setParameter('from', $from->format(\DateTime::ATOM))
             ;
         }
 
         if ($to) {
-            $queryBuilder->where('t.endDate <= :to')
+            $queryBuilder->andWhere('t.endDate <= :to')
                 ->setParameter('to', $to->format(\DateTime::ATOM))
             ;
         }
