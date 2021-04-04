@@ -1,37 +1,41 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-        <th>Start date</th>
-        <th>End date</th>
-        <th>Is billed</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for task in tasks %}
+    <table>
+        <thead>
         <tr>
-            <td>{{ task.name }}</td>
-            <td>{{ task.startDate | date('Y-m-d H:i:s') }}</td>
-            <td>{{ task.endDate | date('Y-m-d H:i:s') }}</td>
-            <td onclick="bill({{ task.id }}, event)">
-                {{ task.isBilled ? '✔' : '❌' }}
-            </td>
+            <th>Name</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th>Is billed</th>
         </tr>
-    {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr>
+                <td>{{ task.name }}</td>
+                <td>{{ task.startDate | date('Y-m-d H:i:s') }}</td>
+                <td>{{ task.endDate | date('Y-m-d H:i:s') }}</td>
+                <td onclick="bill({{ task.id }}, event)">
+                    {{ task.isBilled ? '✔' : '❌' }}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-<a href="{{ path('tasks-create', { 'id': project.id }) }}">Create a new task</a>
+    <a href="{{ path('tasks-create', { 'id': project.id }) }}">Create a new task</a>
 {% endblock %}
 
 {% block javascripts %}
     <script>
         function bill(taskId, event) {
             fetch('/tasks/' + taskId + '/bill', {method: 'PATCH'})
-                .then(function () {
-                    event.target.innerHTML = '✔'
+                .then((response) => {
+                    if (response.ok) {
+                        event.target.innerHTML = '✔'
+                    } else {
+                        window.location = '{{ path('error') }}';
+                    }
                 });
         }
     </script>
