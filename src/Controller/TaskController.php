@@ -39,10 +39,13 @@ class TaskController extends AbstractController
             $entityManager->persist($task);
             $entityManager->flush();
 
-            return $this->redirectToRoute('tasks-create', ['id' => $project->getId()]);
+            return $this->redirectToRoute('tasks-list', ['id' => $project->getId()]);
         }
 
-        return $this->render('task/create.html.twig', ['form' => $form->createView()]);
+        return $this->render(
+            'task/create.html.twig',
+            ['form' => $form->createView(), 'project' => $project]
+        );
     }
 
     #[Route('/tasks/{id}/bill', name: 'tasks-bill', methods: ['PATCH'])]

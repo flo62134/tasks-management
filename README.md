@@ -7,3 +7,14 @@
 ## Quality tools
 - To run PHP CS fixer: ```dce php composer cs```
 - GrumPHP automatically check your commits. To run it manually, run ```dce php composer grumphp```
+
+# Technical choices
+## Fetch
+[Fetch API](https://developer.mozilla.org/fr/docs/Web/API/Fetch_API/Using_Fetch) has been used to perform asynchronous requests.  
+I chose this technology because it is native and easy to use.
+
+## Water.css
+In order to make the website more appealing, I used [Water.css](https://watercss.kognise.dev/).  
+This lightweight framework (< 2kB) makes a website beautiful and responsive in seconds.  
+It does not use classes so it does not alter a project and can be replaced easily by a more oriented framework.
+

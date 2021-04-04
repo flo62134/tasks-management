@@ -1,3 +1,8 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
 
-<a href="{{ path('projects-list') }}">Go back to projects list</a>
+{% block body %}
+    <h1>Create a new project</h1>
+    {{ form(form) }}
+
+    <a href="{{ path('projects-list') }}">Go back to projects list</a>
+{% endblock %}

@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <h1>Stats</h1>
     {% include 'stats/filters.html.twig' %}
+
+    <h2>Results</h2>
     <p>Total tasks: {{ tasksCount }}</p>
     <p>Total minutes: {{ totalDuration.h }} hours and {{ totalDuration.i }} minutes</p>
     {% if days is defined and days != 0 %}
         <p>Average per day: {{ (totalDuration.h / days) | round(2) }} hours and {{ (totalDuration.i / days) | round(2) }} minutes</p>
     {% endif %}
-{% endblock %}
 
-{% block javascripts %}
+    <style>
+        select {
+            display: inline;
+        }
+    </style>
 {% endblock %}

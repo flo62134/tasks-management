@@ -1,11 +1,39 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% for project in projects %}
-        <a href="{{ path('tasks-list', { 'id': project.id}) }}">
-            <div style="background-color: {{ project.color }};">{{ project.name }}</div>
+    <h1>Projects</h1>
+    <div id="projects-list">
+        {% for project in projects %}
+            <a href="{{ path('tasks-list', { 'id': project.id}) }}">
+                <div style="background-color: {{ project.color }};" class="project-card">{{ project.name }}</div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <div>
+        <a href="{{ path('projects-create') }}">
+            <button>
+                Create a new project
+            </button>
         </a>
-    {% endfor %}
+    </div>
 
-    <a href="{{ path('projects-create') }}">Create a new project</a>
 
+    <style>
+        #projects-list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .project-card {
+            width: 200px;
+            height: 50px;
+            display: flex;
+            margin: 20px;
+            text-align: center;
+            color: white;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 {% endblock %}

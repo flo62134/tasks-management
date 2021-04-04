@@ -1,3 +1,15 @@
-{{ form(form) }}
+{% extends 'base.html.twig' %}
 
-<a href="{{ path('projects-list') }}">Go back to projects list</a>
+{% block body %}
+    <h1>{{ project.name }} - New task</h1>
+    {{ form(form) }}
+
+    <a href="{{ path('projects-list') }}">Go back to projects list</a>
+
+    <style>
+        select {
+            display: inline;
+        }
+    </style>
+{% endblock %}
+
