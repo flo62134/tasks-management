@@ -5,10 +5,13 @@
     {% include 'stats/filters.html.twig' %}
 
     <h2>Results</h2>
-    <p>Total tasks: {{ tasksCount }}</p>
-    <p>Total minutes: {{ totalDuration.h }} hours and {{ totalDuration.i }} minutes</p>
+    <p>Total tasks: {{ tasks.count }}</p>
+    <p>Total duration: {{ totalDuration | date('%y years %m months %d days %h hours %i minutes') }}</p>
     {% if days is defined and days != 0 %}
-        <p>Average per day: {{ (totalDuration.h / days) | round(2) }} hours and {{ (totalDuration.i / days) | round(2) }} minutes</p>
+        <p>Average per day:
+            {{ ((totalDuration.h + (totalDuration.d * 24)) / days) | round(2) }} hours
+            {{ (totalDuration.i / days) | round(2) }} minutes
+        </p>
     {% endif %}
 
     <h2>Tasks</h2>

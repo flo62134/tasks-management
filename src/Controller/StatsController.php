@@ -43,7 +43,6 @@ class StatsController extends AbstractController
 
         $params = [
             'tasks' => $tasks,
-            'tasksCount' => $tasks->count(),
             'totalDuration' => $totalDuration,
             'days' => $days,
             'projects' => $this->projectRepository->findAll(),
