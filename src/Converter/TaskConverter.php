@@ -17,6 +17,9 @@ class TaskConverter
 
         foreach ($tasks as $task) {
             $taskDuration = $task->getDuration();
+            $duration->y += $taskDuration->y;
+            $duration->m += $taskDuration->m;
+            $duration->d += $taskDuration->d;
             $duration->h += $taskDuration->h;
             $duration->i += $taskDuration->i;
         }
