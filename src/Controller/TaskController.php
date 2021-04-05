@@ -56,4 +56,15 @@ class TaskController extends AbstractController
 
         return $this->json($task, Response::HTTP_OK);
     }
+
+    #[Route('/tasks/{id}', name: 'tasks-delete')]
+    public function delete(Task $task, EntityManagerInterface $entityManager): Response
+    {
+        $project = $task->getProject();
+
+        $entityManager->remove($task);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('tasks-list', ['id' => $project->getId()]);
+    }
 }

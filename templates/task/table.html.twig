@@ -5,6 +5,7 @@
         <th>Start date</th>
         <th>End date</th>
         <th>Is billed</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
             <td onclick="bill({{ task.id }}, event)">
                 {{ task.isBilled ? '✔' : '❌' }}
             </td>
+            <td><a href="{{ path('tasks-delete', {'id': task.id}) }}">Delete</a></td>
         </tr>
     {% endfor %}
     </tbody>
