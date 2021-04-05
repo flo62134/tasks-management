@@ -11,6 +11,9 @@
         <p>Average per day: {{ (totalDuration.h / days) | round(2) }} hours and {{ (totalDuration.i / days) | round(2) }} minutes</p>
     {% endif %}
 
+    <h2>Tasks</h2>
+    {% include 'task/table.html.twig' %}
+
     <style>
         select {
             display: inline;

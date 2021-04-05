@@ -42,6 +42,7 @@ class StatsController extends AbstractController
         $days = $from && $to ? $from->diff($to)->days + 1 : null;
 
         $params = [
+            'tasks' => $tasks,
             'tasksCount' => $tasks->count(),
             'totalDuration' => $totalDuration,
             'days' => $days,
